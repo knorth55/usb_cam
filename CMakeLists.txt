@@ -47,9 +47,12 @@ option(SUPPRESS_BIND_GLOBAL_PLACEHOLDERS
     "Suppresses Boost >= 1.68 deprecation warning message for global placeholders in boost::bind instantiation"
     ON
 ) # Workaround for deprecation message from instantiation of Boost::bind
-if(SUPPRESS_BIND_GLOBAL_PLACEHOLDERS)
-    add_compile_definitions(BOOST_BIND_GLOBAL_PLACEHOLDERS)
-endif(SUPPRESS_BIND_GLOBAL_PLACEHOLDERS)
+
+if("$ENV{ROS_DISTRO}" STRGREATER "melodic")
+  if(SUPPRESS_BIND_GLOBAL_PLACEHOLDERS)
+      add_compile_definitions(BOOST_BIND_GLOBAL_PLACEHOLDERS)
+  endif()
+endif()
 
 include_directories(include)
 link_directories(
